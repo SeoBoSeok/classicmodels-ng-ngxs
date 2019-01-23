@@ -10,6 +10,13 @@ MySQL 용 샘플 데이터베이스 classicmodels 를 위한 angular 7.x 코드 
 > 이 코드의 실행을 위해서는 백엔드가 필요 합니다.
   꾼즈의 [샘플 목록](http://www.ggoons.com#samples)에서 원하는 백엔드를 선택하여 다운로드 후 실행 하십시요.
 
+지도의 표시를 위해 [구글](https://cloud.google.com/maps-platform/) 에서 구글 맵을 위한 apikey 를
+얻은 후, src/index.html 에서 아래 부분의 **FIXME:your-key-here** 부분 대신 붙혀 넣으십시요.
+
+```
+<script src="https://maps.googleapis.com/maps/api/js?key=FIXME:your-key-here"></script>
+```
+
 다음은 이 코드의 컴파일, 테스트 및 실행 방법 입니다.
 
 ## to install all dependencies
