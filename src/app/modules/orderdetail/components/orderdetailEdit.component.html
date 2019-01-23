@@ -1,0 +1,94 @@
+
+<form (ngSubmit)="onSubmit()" #orderdetailEditForm="ngForm" >
+    <div *ngIf="ef">
+        <div *ngIf="ef.errors && (ef.errors | json) != '{}'">
+            <h2>Ooops!!! fail to validation on server</h2>
+            <p class="alert">
+                If you see this messages, then your validation codes
+                is not agree with validation codes in backend server.</p>
+            <p class="alert">{{stringify(ef.errors)}}</p>
+        </div>
+
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.orderdetail.quantityOrdered"
+                id="quantityOrdered" name="quantityOrdered" #quantityOrdered="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'orderdetail.quantityOrdered' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="quantityOrdered.errors && (quantityOrdered.dirty || quantityOrdered.touched)">
+                <div *ngIf="quantityOrdered.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'orderdetail.quantityOrdered' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.orderdetail.priceEach"
+                id="priceEach" name="priceEach" #priceEach="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'orderdetail.priceEach' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="priceEach.errors && (priceEach.dirty || priceEach.touched)">
+                <div *ngIf="priceEach.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'orderdetail.priceEach' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.orderdetail.orderLineNumber"
+                id="orderLineNumber" name="orderLineNumber" #orderLineNumber="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'orderdetail.orderLineNumber' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="orderLineNumber.errors && (orderLineNumber.dirty || orderLineNumber.touched)">
+                <div *ngIf="orderLineNumber.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'orderdetail.orderLineNumber' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-select [(ngModel)]="selectedOrder" name="order" #order="ngModel">
+            <mat-option *ngFor="let order of ef.orders" [value]="order">
+                {{ order.status }}
+            </mat-option>
+        </mat-select>
+        <div [hidden]="order.valid || order.pristine" class="alert alert-danger">
+            {{'orderdetail.order_is_required' | translate}}
+        </div>
+        <br/>
+        <mat-select [(ngModel)]="selectedProduct" name="product" #product="ngModel">
+            <mat-option *ngFor="let product of ef.products" [value]="product">
+                {{ product.productName }}
+            </mat-option>
+        </mat-select>
+        <div [hidden]="product.valid || product.pristine" class="alert alert-danger">
+            {{'orderdetail.product_is_required' | translate}}
+        </div>
+        <br/>
+
+        <br/>
+
+        <button mat-raised-button type="submit" [disabled]="!orderdetailEditForm.form.valid">{{'Save' | translate}}</button>
+
+    </div>
+</form>
+

@@ -1,0 +1,35 @@
+
+<form (ngSubmit)="onSubmit()" #customerPaymentStatisticFilterForm="ngForm">
+    <mat-card class="app-input-section">
+        <mat-toolbar color="primary">CustomerPaymentStatistic Filter</mat-toolbar>
+        <mat-card-content>
+            <mat-form-field class="filter-full-width">
+                <input matInput [(ngModel)]="customerNumber" name="customerNumber">
+                <mat-placeholder>
+                    {{'customerNumber' | translate}}
+                </mat-placeholder>
+                <mat-hint align="end">
+                    customerNumber
+                </mat-hint>
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <input matInput type="date" [(ngModel)]="paymentDateFrom" name="paymentDateFrom">
+                <mat-hint align="end">
+                    paymentDateFrom
+                </mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="date" [(ngModel)]="paymentDateTo" name="paymentDateTo">
+                <mat-hint align="end">
+                    paymentDateTo
+                </mat-hint>
+            </mat-form-field>
+            <br />
+            <button mat-raised-button color="primary">
+                {{'Filter' | translate}}
+            </button>
+        </mat-card-content>
+    </mat-card>
+
+</form>

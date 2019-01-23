@@ -1,0 +1,141 @@
+
+<form (ngSubmit)="onSubmit()" #employeeEditForm="ngForm" >
+    <div *ngIf="ef">
+        <div *ngIf="ef.errors && (ef.errors | json) != '{}'">
+            <h2>Ooops!!! fail to validation on server</h2>
+            <p class="alert">
+                If you see this messages, then your validation codes
+                is not agree with validation codes in backend server.</p>
+            <p class="alert">{{stringify(ef.errors)}}</p>
+        </div>
+
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.employee.employeeNumber"
+                id="employeeNumber" name="employeeNumber" #employeeNumber="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'employee.employeeNumber' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="employeeNumber.errors && (employeeNumber.dirty || employeeNumber.touched)">
+                <div *ngIf="employeeNumber.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'employee.employeeNumber' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.employee.lastName"
+                    id="lastName" name="lastName" #lastName="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'employee.lastName' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
+                <div *ngIf="lastName.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'employee.lastName' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.employee.firstName"
+                    id="firstName" name="firstName" #firstName="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'employee.firstName' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+                <div *ngIf="firstName.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'employee.firstName' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.employee.extension"
+                    id="extension" name="extension" #extension="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'employee.extension' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="extension.errors && (extension.dirty || extension.touched)">
+                <div *ngIf="extension.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'employee.extension' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.employee.email"
+                    id="email" name="email" #email="ngModel"
+                email
+                required
+            >
+            <mat-placeholder>
+                {{'employee.email' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="email.errors && (email.dirty || email.touched)">
+                <div *ngIf="email.errors.email">
+                    {{'invalid_email_pattern' | translate}}
+                </div>
+                <div *ngIf="email.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'employee.email' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.employee.jobTitle"
+                    id="jobTitle" name="jobTitle" #jobTitle="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'employee.jobTitle' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="jobTitle.errors && (jobTitle.dirty || jobTitle.touched)">
+                <div *ngIf="jobTitle.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'employee.jobTitle' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-select [(ngModel)]="selectedOffice" name="office" #office="ngModel">
+            <mat-option *ngFor="let office of ef.offices" [value]="office">
+                {{ office.city }}
+            </mat-option>
+        </mat-select>
+        <div [hidden]="office.valid || office.pristine" class="alert alert-danger">
+            {{'employee.office_is_required' | translate}}
+        </div>
+        <br/>
+
+        <br/>
+
+        <button mat-raised-button type="submit" [disabled]="!employeeEditForm.form.valid">{{'Save' | translate}}</button>
+
+    </div>
+</form>
+

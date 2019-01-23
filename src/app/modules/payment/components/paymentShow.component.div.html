@@ -1,0 +1,14 @@
+
+<div *ngIf="payment">
+    <span class="column-label">{{'paymentShow.checkNumber' | translate}}:</span>
+    <span class="column-data">{{payment.checkNumber}}</span>
+    <br />
+    <span class="column-label">{{'paymentShow.paymentDate' | translate}}:</span>
+    <span class="column-data">{{payment.paymentDate | date: 'yyyy-MM-dd'}}</span>
+    <br />
+    <span class="column-label">{{'paymentShow.amount' | translate}}:</span>
+    <span class="column-data">{{payment.amount}}</span>
+    <br />
+
+</div>
+

@@ -1,0 +1,23 @@
+
+<form (ngSubmit)="onSubmit()" #employeeListFilterForm="ngForm">
+    <mat-card class="app-input-section">
+        <mat-toolbar color="primary">EmployeeList Filter</mat-toolbar>
+        <mat-card-content>
+            <mat-form-field class="filter-full-width">
+                <input matInput [(ngModel)]="lastName" name="lastName">
+                <mat-placeholder>
+                    {{'lastName' | translate}}
+                </mat-placeholder>
+                <mat-hint align="end">
+                    lastName
+                </mat-hint>
+            </mat-form-field>
+            <br />
+            <button mat-raised-button color="primary">
+                {{'Filter' | translate}}
+            </button>
+        </mat-card-content>
+    </mat-card>
+
+</form>
+

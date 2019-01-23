@@ -1,0 +1,17 @@
+
+<h3>{{'productList' | translate}}</h3>
+
+<data-table
+    [titles]="productListTitles"
+    [labels]="productListLabels"
+    [rows]="products"
+    [columns]="productListColumns"
+    [disableControl]="isEmbedded()"
+    [buttonsToEachRows]="buttonsToEachRows()"
+    (onClickToSpecificRow)="onClickToSpecificRow($event)"
+    (onClickButtonToRow)="onClickButtonToRow($event)"
+    [pagingType]="'more'"
+    [hasMoreRows]="hasMoreRows"
+    (onReadMore)="onReadMore()"
+    >
+</data-table>

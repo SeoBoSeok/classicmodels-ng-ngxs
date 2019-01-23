@@ -1,0 +1,55 @@
+
+<form (ngSubmit)="onSubmit()" #productlineEditForm="ngForm" enctype="multipart/form-data">
+    <div *ngIf="ef">
+        <div *ngIf="ef.errors && (ef.errors | json) != '{}'">
+            <h2>Ooops!!! fail to validation on server</h2>
+            <p class="alert">
+                If you see this messages, then your validation codes
+                is not agree with validation codes in backend server.</p>
+            <p class="alert">{{stringify(ef.errors)}}</p>
+        </div>
+
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.productline.productLine"
+                    id="productLine" name="productLine" #productLine="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'productline.productLine' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="productLine.errors && (productLine.dirty || productLine.touched)">
+                <div *ngIf="productLine.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'productline.productLine' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <textarea name="productline.textDescription" rows="10" class="edit-full-width"
+                id="textDescription" [(ngModel)]="ef.productline.textDescription"
+        ></textarea>
+        <br/>
+        <textarea name="productline.htmlDescription" rows="10" class="edit-full-width"
+                id="htmlDescription" [(ngModel)]="ef.productline.htmlDescription"
+        ></textarea>
+        <br/>
+        <div class="edit-full-width">
+            <label>image: </label>
+            <input type="file" accept="*" (change)="selectImageFile($event)"
+                id="image"
+                />
+            <span *ngIf="ef.image">
+                <a href="{{ serverUrl(ef.image) }}">image</a>
+            </span>
+        </div>
+        <br/>
+
+        <br/>
+
+        <button mat-raised-button type="submit" [disabled]="!productlineEditForm.form.valid">{{'Save' | translate}}</button>
+
+    </div>
+</form>
+

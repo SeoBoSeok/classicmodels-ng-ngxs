@@ -1,0 +1,129 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" class="app-sidenav">
+    <a routerLink="/customers/list">
+      <button mat-fab matTooltip="{{'CustomerList' | translate}}">
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/customers/edit">
+      <button mat-fab matTooltip="{{'CustomerEdit' | translate}}">
+        <mat-icon>alarm</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/customers/statistics">
+      <button mat-fab matTooltip="{{'CustomerPaymentStatistic' | translate}}">
+        <mat-icon>build</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/employees/list">
+      <button mat-fab matTooltip="{{'EmployeeList' | translate}}">
+        <mat-icon>face</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/employees/edit">
+      <button mat-fab matTooltip="{{'EmployeeEdit' | translate}}">
+        <mat-icon>record_voice_over</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/offices/list">
+      <button mat-fab matTooltip="{{'OfficeList' | translate}}">
+        <mat-icon>call</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/offices/edit">
+      <button mat-fab matTooltip="{{'OfficeEdit' | translate}}">
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/offices/map">
+      <button mat-fab matTooltip="{{'OfficeMap' | translate}}">
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/orderdetails/list">
+      <button mat-fab matTooltip="{{'OrderdetailList' | translate}}">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/orderdetails/edit">
+      <button mat-fab matTooltip="{{'OrderdetailEdit' | translate}}">
+        <mat-icon>build</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/orders/list">
+      <button mat-fab matTooltip="{{'OrderList' | translate}}">
+        <mat-icon>face</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/orders/edit">
+      <button mat-fab matTooltip="{{'OrderEdit' | translate}}">
+        <mat-icon>record_voice_over</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/payments/list">
+      <button mat-fab matTooltip="{{'PaymentList' | translate}}">
+        <mat-icon>call</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/payments/edit">
+      <button mat-fab matTooltip="{{'PaymentEdit' | translate}}">
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/productlines/list">
+      <button mat-fab matTooltip="{{'ProductlineList' | translate}}">
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/productlines/edit">
+      <button mat-fab matTooltip="{{'ProductlineEdit' | translate}}">
+        <mat-icon>alarm</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/products/list">
+      <button mat-fab matTooltip="{{'ProductList' | translate}}">
+        <mat-icon>build</mat-icon>
+      </button>
+    </a><br/>
+    <a routerLink="/products/edit">
+      <button mat-fab matTooltip="{{'ProductEdit' | translate}}">
+        <mat-icon>offline_pin</mat-icon>
+      </button>
+    </a><br/>
+  </mat-sidenav>
+
+  <mat-toolbar color="primary">
+    <button class="app-icon-button" (click)="sidenav.toggle()">
+      <i class="material-icons app-toolbar-menu">menu</i>
+    </button>
+
+    <a routerLink="/">
+      <button mat-fab><mat-icon>home</mat-icon></button>
+    </a>
+
+    <span class="app-toolbar-filler"></span>
+    <button mat-button [matMenuTriggerFor]="lang_menu">
+        {{current_language}}
+    </button>
+    <mat-menu #lang_menu="matMenu">
+        <button *ngFor="let code of languageCodes" mat-menu-item (click)="set_language(code)">
+            {{languages[code]}}
+        </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <!-- body -->
+  <div class="app-content">
+    <router-outlet></router-outlet>
+
+    <footer>
+      <p>Copyright &copy; 2019 by 
+      <span class="company-name">any.classicmodels</span></p>
+    </footer>
+
+  </div> <!-- /app-content -->
+</mat-sidenav-container>
+
+<span class="app-action">
+  <button mat-fab (click)="scrollTop()"><mat-icon>publish</mat-icon></button>
+</span>

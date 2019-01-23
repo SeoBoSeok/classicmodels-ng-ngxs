@@ -1,0 +1,19 @@
+
+<div *ngIf="productline">
+    <span class="column-label">{{'productlineShow.productLine' | translate}}:</span>
+    <span class="column-data">{{productline.productLine}}</span>
+    <br />
+    <span class="column-label">{{'productlineShow.textDescription' | translate}}:</span>
+    <br/><div [innerHtml]="productline.textDescription"></div>
+    <br />
+    <span class="column-label">{{'productlineShow.htmlDescription' | translate}}:</span>
+    <br/><div [innerHtml]="productline.htmlDescription"></div>
+    <br />
+    <span class="column-label">{{'productlineShow.image' | translate}}:</span>
+        <span>
+            <a href="{{ serverUrl(productline.image) }}"></a>
+        <span>
+    <br />
+
+</div>
+

@@ -1,0 +1,39 @@
+
+<div *ngIf="employee">
+    <table class="datashow">
+    <tr>
+        <th>{{'employeeShow.employeeNumber' | translate}}</th>
+        <td class="number">{{employee.employeeNumber}}</td>
+    </tr>
+    <tr>
+        <th>{{'employeeShow.lastName' | translate}}</th>
+        <td>{{employee.lastName}}</td>
+    </tr>
+    <tr>
+        <th>{{'employeeShow.firstName' | translate}}</th>
+        <td>{{employee.firstName}}</td>
+    </tr>
+    <tr>
+        <th>{{'employeeShow.extension' | translate}}</th>
+        <td>{{employee.extension}}</td>
+    </tr>
+    <tr>
+        <th>{{'employeeShow.email' | translate}}</th>
+        <td>{{employee.email}}</td>
+    </tr>
+    <tr>
+        <th>{{'employeeShow.officeCode' | translate}}</th>
+        <td>{{employee.officeCode}}</td>
+    </tr>
+    <tr>
+        <th>{{'employeeShow.reportsTo' | translate}}</th>
+        <td class="number">{{employee.reportsTo}}</td>
+    </tr>
+    <tr>
+        <th>{{'employeeShow.jobTitle' | translate}}</th>
+        <td>{{employee.jobTitle}}</td>
+    </tr>
+    </table>
+
+</div>
+

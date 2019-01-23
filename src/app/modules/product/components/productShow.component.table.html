@@ -1,0 +1,42 @@
+
+<div *ngIf="product">
+    <table class="datashow">
+    <tr>
+        <th>{{'productShow.productCode' | translate}}</th>
+        <td>{{product.productCode}}</td>
+    </tr>
+    <tr>
+        <th>{{'productShow.productName' | translate}}</th>
+        <td>{{product.productName}}</td>
+    </tr>
+    <tr>
+        <th>{{'productShow.productLine' | translate}}</th>
+        <td>{{product.productLine}}</td>
+    </tr>
+    <tr>
+        <th>{{'productShow.productScale' | translate}}</th>
+        <td>{{product.productScale}}</td>
+    </tr>
+    <tr>
+        <th>{{'productShow.productVendor' | translate}}</th>
+        <td>{{product.productVendor}}</td>
+    </tr>
+    <tr>
+        <th>{{'productShow.productDescription' | translate}}</th>
+        <td><div [innerHtml]="product.productDescription"></div></td>
+    </tr>
+    <tr>
+        <th>{{'productShow.quantityInStock' | translate}}</th>
+        <td class="number">{{product.quantityInStock}}</td>
+    </tr>
+    <tr>
+        <th>{{'productShow.buyPrice' | translate}}</th>
+        <td class="number">{{product.buyPrice}}</td>
+    </tr>
+    <tr>
+        <th>{{'productShow.msrp' | translate}}</th>
+        <td class="number">{{product.msrp}}</td>
+    </tr>
+    </table>
+
+</div>

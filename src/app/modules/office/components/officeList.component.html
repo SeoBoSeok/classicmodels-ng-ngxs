@@ -1,0 +1,29 @@
+
+<h3>{{'officeList' | translate}}</h3>
+
+<data-table
+    [titles]="officeListTitles"
+    [labels]="officeListLabels"
+    [rows]="offices"
+    [columns]="officeListColumns"
+    [disableControl]="isEmbedded()"
+    (onClickToSpecificRow)="onClickToSpecificRow($event)"
+    [pagingType]="'more'"
+    [hasMoreRows]="hasMoreRows"
+    (onReadMore)="onReadMore()"
+    >
+</data-table>
+
+<mat-card>
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                {{'Detail' | translate}}
+            </ng-template>
+            <div *ngIf="!isExclude('EmployeeList') && employeeListFilter">
+                <employee-list [embedded]="true" [query]="employeeListFilter"></employee-list>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+

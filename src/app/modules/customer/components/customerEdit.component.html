@@ -1,0 +1,221 @@
+
+<form (ngSubmit)="onSubmit()" #customerEditForm="ngForm" >
+    <div *ngIf="ef">
+        <div *ngIf="ef.errors && (ef.errors | json) != '{}'">
+            <h2>Ooops!!! fail to validation on server</h2>
+            <p class="alert">
+                If you see this messages, then your validation codes
+                is not agree with validation codes in backend server.</p>
+            <p class="alert">{{stringify(ef.errors)}}</p>
+        </div>
+
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.customer.customerNumber"
+                id="customerNumber" name="customerNumber" #customerNumber="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'customer.customerNumber' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="customerNumber.errors && (customerNumber.dirty || customerNumber.touched)">
+                <div *ngIf="customerNumber.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.customerNumber' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.customerName"
+                    id="customerName" name="customerName" #customerName="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'customer.customerName' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="customerName.errors && (customerName.dirty || customerName.touched)">
+                <div *ngIf="customerName.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.customerName' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.contactLastName"
+                    id="contactLastName" name="contactLastName" #contactLastName="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'customer.contactLastName' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="contactLastName.errors && (contactLastName.dirty || contactLastName.touched)">
+                <div *ngIf="contactLastName.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.contactLastName' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.contactFirstName"
+                    id="contactFirstName" name="contactFirstName" #contactFirstName="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'customer.contactFirstName' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="contactFirstName.errors && (contactFirstName.dirty || contactFirstName.touched)">
+                <div *ngIf="contactFirstName.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.contactFirstName' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.phone"
+                    id="phone" name="phone" #phone="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'customer.phone' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="phone.errors && (phone.dirty || phone.touched)">
+                <div *ngIf="phone.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.phone' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.addressLine1"
+                    id="addressLine1" name="addressLine1" #addressLine1="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'customer.addressLine1' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="addressLine1.errors && (addressLine1.dirty || addressLine1.touched)">
+                <div *ngIf="addressLine1.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.addressLine1' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.addressLine2"
+                    id="addressLine2" name="addressLine2" #addressLine2="ngModel"
+            >
+            <mat-placeholder>
+                {{'customer.addressLine2' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="addressLine2.errors && (addressLine2.dirty || addressLine2.touched)">
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.addressLine2' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.city"
+                    id="city" name="city" #city="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'customer.city' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="city.errors && (city.dirty || city.touched)">
+                <div *ngIf="city.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.city' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.state"
+                    id="state" name="state" #state="ngModel"
+            >
+            <mat-placeholder>
+                {{'customer.state' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="state.errors && (state.dirty || state.touched)">
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.state' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.postalCode"
+                    id="postalCode" name="postalCode" #postalCode="ngModel"
+            >
+            <mat-placeholder>
+                {{'customer.postalCode' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="postalCode.errors && (postalCode.dirty || postalCode.touched)">
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.postalCode' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.customer.country"
+                    id="country" name="country" #country="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'customer.country' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="country.errors && (country.dirty || country.touched)">
+                <div *ngIf="country.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.country' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.customer.creditLimit"
+                id="creditLimit" name="creditLimit" #creditLimit="ngModel"
+                integerOnly
+                >
+            <mat-placeholder>
+                {{'customer.creditLimit' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="creditLimit.errors && (creditLimit.dirty || creditLimit.touched)">
+            </mat-error>
+            <mat-hint align="end">
+                {{'customer.creditLimit' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+
+        <br/>
+
+        <button mat-raised-button type="submit" [disabled]="!customerEditForm.form.valid">{{'Save' | translate}}</button>
+
+    </div>
+</form>
+

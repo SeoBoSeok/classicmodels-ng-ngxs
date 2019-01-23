@@ -1,0 +1,35 @@
+
+<div *ngIf="order">
+    <table class="datashow">
+    <tr>
+        <th>{{'orderShow.orderNumber' | translate}}</th>
+        <td class="number">{{order.orderNumber}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderShow.orderDate' | translate}}</th>
+        <td>{{order.orderDate | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderShow.requiredDate' | translate}}</th>
+        <td>{{order.requiredDate | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderShow.shippedDate' | translate}}</th>
+        <td>{{order.shippedDate | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderShow.status' | translate}}</th>
+        <td>{{order.status}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderShow.comments' | translate}}</th>
+        <td><div [innerHtml]="order.comments"></div></td>
+    </tr>
+    <tr>
+        <th>{{'orderShow.customerNumber' | translate}}</th>
+        <td class="number">{{order.customerNumber}}</td>
+    </tr>
+    </table>
+
+</div>
+

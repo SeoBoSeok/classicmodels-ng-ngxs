@@ -1,0 +1,173 @@
+
+<form (ngSubmit)="onSubmit()" #officeEditForm="ngForm" >
+    <div *ngIf="ef">
+        <div *ngIf="ef.errors && (ef.errors | json) != '{}'">
+            <h2>Ooops!!! fail to validation on server</h2>
+            <p class="alert">
+                If you see this messages, then your validation codes
+                is not agree with validation codes in backend server.</p>
+            <p class="alert">{{stringify(ef.errors)}}</p>
+        </div>
+
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.officeCode"
+                    id="officeCode" name="officeCode" #officeCode="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'office.officeCode' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="officeCode.errors && (officeCode.dirty || officeCode.touched)">
+                <div *ngIf="officeCode.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.officeCode' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.city"
+                    id="city" name="city" #city="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'office.city' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="city.errors && (city.dirty || city.touched)">
+                <div *ngIf="city.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.city' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.phone"
+                    id="phone" name="phone" #phone="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'office.phone' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="phone.errors && (phone.dirty || phone.touched)">
+                <div *ngIf="phone.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.phone' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.addressLine1"
+                    id="addressLine1" name="addressLine1" #addressLine1="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'office.addressLine1' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="addressLine1.errors && (addressLine1.dirty || addressLine1.touched)">
+                <div *ngIf="addressLine1.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.addressLine1' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.addressLine2"
+                    id="addressLine2" name="addressLine2" #addressLine2="ngModel"
+            >
+            <mat-placeholder>
+                {{'office.addressLine2' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="addressLine2.errors && (addressLine2.dirty || addressLine2.touched)">
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.addressLine2' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.state"
+                    id="state" name="state" #state="ngModel"
+            >
+            <mat-placeholder>
+                {{'office.state' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="state.errors && (state.dirty || state.touched)">
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.state' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.country"
+                    id="country" name="country" #country="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'office.country' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="country.errors && (country.dirty || country.touched)">
+                <div *ngIf="country.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.country' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.postalCode"
+                    id="postalCode" name="postalCode" #postalCode="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'office.postalCode' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="postalCode.errors && (postalCode.dirty || postalCode.touched)">
+                <div *ngIf="postalCode.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.postalCode' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.office.territory"
+                    id="territory" name="territory" #territory="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'office.territory' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="territory.errors && (territory.dirty || territory.touched)">
+                <div *ngIf="territory.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'office.territory' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+
+        <br/>
+
+        <button mat-raised-button type="submit" [disabled]="!officeEditForm.form.valid">{{'Save' | translate}}</button>
+
+    </div>
+</form>
+

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+ Copyright(c) 2009-2019 by GGoons.
+-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <title>Powered by ggoons</title>
+<script type="text/javascript">
+//<![CDATA[
+
+    var translatedMsgs = [];
+    var locales = [];
+
+    function trace(s) {
+        try {
+            console.log(s)
+        } catch (e) {
+            // ignore.
+        }
+    }
+
+    /**
+    */
+    function dump() {
+        var trmsgs = [];
+    //	trace("locales.data => " + locales.length);
+        locales.forEach(locale => {
+            var msgs = translatedMsgs.filter(map => map.langcode === locale.langcode);
+        //	trace("0.msgs.size => " + msgs.length);
+            if (msgs.length === 0) {
+                return;
+            }
+            let filename = locale.langcode+".json";
+            msgs = msgs.map(msg => {
+                    return "echo \"" + msg.msgcode + "\": \"" + msg.newmsg + "\", >> " + filename;
+                });
+        //	trace("1.msgs.size => " + msgs.length);
+            trmsgs.push("echo { >> " + filename);
+            trmsgs.push(msgs.join("\n"));
+            trmsgs.push("echo \"terminator\": true >> " + filename);
+            trmsgs.push("echo } >> " + filename);
+        });
+        const data = trmsgs.join("\n");
+    //	trace("dump.data => " + data);
+        $("#dotbat").val(data);
+    }
+
+    /**
+    */
+    function getTargetLocales() { 
+     try{
+        return $('input[type=checkbox]').map(function(){
+            if ($(this).is(':checked')) {
+                var lang_code = $(this).attr('value');
+                var language = $(this).attr('name');
+                return {langcode: lang_code, lang: language};
+            }
+        }).get();
+
+     }catch(e){alert('getTargetLocales().Exception: '+e+': '+e.message);}
+    }
+
+    /**
+    */
+    function getMessages() {
+     try{
+        var org_messages = $("#messages").val();
+        var lines = org_messages.split(/\n/);
+        var msgs = [];
+        $.each(lines, function(i, line){
+            if (line.match(/^#/) || line.match(/^\s*$/)) {
+            } else {
+                msg = line.split(/=/);
+                msgs.push({code: msg[0], mean: msg[1]});
+            }
+        });
+
+        return msgs;
+     }catch(e){alert('getMessages().Exception: '+e+': '+e.message);}
+    }
+
+    /**
+    * locale = {langcode: yy, lang: zz}
+    * message = {code: xx, mean: yy}
+    */
+    function translate(locale, message) {
+        var word = message.mean;
+        var src = "en";	// fixed.
+        var tgt = locale.langcode;
+        var url = "http://api.mymemory.translated.net/get?q="+encodeURI(word)+
+            "&langpair="+src+"|"+tgt+"";
+ 		//trace("url = "+url);
+        return new Promise((resolve, reject) => {
+            let toWord = word;
+            let msg = {
+                langcode: locale.langcode,
+                msgcode: message.code,
+                newmsg: null
+            };
+            $.getJSON(url, (obj) => {
+                trace("obj => "+JSON.stringify(obj));
+                if (obj.responseStatus == 200) {
+                    msg.newmsg = obj.responseData.translatedText;
+                    resolve(msg);
+                } else {
+                    reject("error to message: "+toWord+", response: "+obj.responseDetails);
+                }
+            });
+        });
+    }
+
+    /**
+    */
+    function localeGenerate() { 
+     try {
+        locales = getTargetLocales();
+        const messages = getMessages();
+        translatedMsgs.length = 0;
+
+        Promise.all(
+            locales.map(locale => {
+                return Promise.all(
+                    messages.map(msg => {
+                        return translate(locale, msg)
+                            .then(map => translatedMsgs.push(map))
+                            .catch(err => trace(err))
+                    })
+                ).then(arr => {
+                //	trace("0.arr.length => "+arr.length);
+                //	trace("0.translatedMsgs.length => "+translatedMsgs.length);
+                    return Promise.resolve(arr);
+                })
+            })
+        ).then(arr => {
+        //	trace("arr.length => "+arr.length);
+        //	trace("typeof arr[0] => "+typeof arr[0]);
+            dump();
+            trace("done.");
+        });
+
+     } catch(e){alert('localeGenerate().Exception: '+e+': '+e.message);}
+
+    }
+
+    /**
+    */
+    function selectAllLocales() {
+     try{
+        var checkBoxes = $('input[type=checkbox]');
+        checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+     }catch(e){alert('selectAllLocales().Exception: '+e+': '+e.message);}
+    }
+//]]>
+</script>
+</head>
+<body>
+    <label>Original messages:</label>
+    <br/>
+    <textarea id="messages" rows="10" cols="80">
+welcome=Welcome
+required=is required
+notFound=has not been found
+duplicate=is already in use
+typeMismatch.date=invalid date
+typeMismatch.birthDate=invalid date
+password_confirm=Password Confirm
+# table customers.
+customer=customers
+customer.customerNumber=customerNumber
+customer.customerNumber_is_required=customerNumber is required
+customer.customerName=customerName
+customer.customerName_is_required=customerName is required
+customer.contactLastName=contactLastName
+customer.contactLastName_is_required=contactLastName is required
+customer.contactFirstName=contactFirstName
+customer.contactFirstName_is_required=contactFirstName is required
+customer.phone=phone
+customer.phone_is_required=phone is required
+customer.addressLine1=addressLine1
+customer.addressLine1_is_required=addressLine1 is required
+customer.addressLine2=addressLine2
+customer.addressLine2_is_required=addressLine2 is required
+customer.city=city
+customer.city_is_required=city is required
+customer.state=state
+customer.state_is_required=state is required
+customer.postalCode=postalCode
+customer.postalCode_is_required=postalCode is required
+customer.country=country
+customer.country_is_required=country is required
+customer.salesRepEmployeeNumber=salesRepEmployeeNumber
+customer.salesRepEmployeeNumber_is_required=salesRepEmployeeNumber is required
+customer.creditLimit=creditLimit
+customer.creditLimit_is_required=creditLimit is required
+# table employees.
+employee=employees
+employee.employeeNumber=employeeNumber
+employee.employeeNumber_is_required=employeeNumber is required
+employee.lastName=lastName
+employee.lastName_is_required=lastName is required
+employee.firstName=firstName
+employee.firstName_is_required=firstName is required
+employee.extension=extension
+employee.extension_is_required=extension is required
+employee.email=email
+employee.email_is_required=email is required
+employee.officeCode=officeCode
+employee.officeCode_is_required=officeCode is required
+employee.reportsTo=reportsTo
+employee.reportsTo_is_required=reportsTo is required
+employee.jobTitle=jobTitle
+employee.jobTitle_is_required=jobTitle is required
+# table offices.
+office=offices
+office.officeCode=officeCode
+office.officeCode_is_required=officeCode is required
+office.city=city
+office.city_is_required=city is required
+office.phone=phone
+office.phone_is_required=phone is required
+office.addressLine1=addressLine1
+office.addressLine1_is_required=addressLine1 is required
+office.addressLine2=addressLine2
+office.addressLine2_is_required=addressLine2 is required
+office.state=state
+office.state_is_required=state is required
+office.country=country
+office.country_is_required=country is required
+office.postalCode=postalCode
+office.postalCode_is_required=postalCode is required
+office.territory=territory
+office.territory_is_required=territory is required
+# table orderdetails.
+orderdetail=orderdetails
+orderdetail.orderNumber=orderNumber
+orderdetail.orderNumber_is_required=orderNumber is required
+orderdetail.productCode=productCode
+orderdetail.productCode_is_required=productCode is required
+orderdetail.quantityOrdered=quantityOrdered
+orderdetail.quantityOrdered_is_required=quantityOrdered is required
+orderdetail.priceEach=priceEach
+orderdetail.priceEach_is_required=priceEach is required
+orderdetail.orderLineNumber=orderLineNumber
+orderdetail.orderLineNumber_is_required=orderLineNumber is required
+# table orders.
+order=orders
+order.orderNumber=orderNumber
+order.orderNumber_is_required=orderNumber is required
+order.orderDate=orderDate
+order.orderDate_is_required=orderDate is required
+order.requiredDate=requiredDate
+order.requiredDate_is_required=requiredDate is required
+order.shippedDate=shippedDate
+order.shippedDate_is_required=shippedDate is required
+order.status=status
+order.status_is_required=status is required
+order.comments=comments
+order.comments_is_required=comments is required
+order.customerNumber=customerNumber
+order.customerNumber_is_required=customerNumber is required
+# table payments.
+payment=payments
+payment.customerNumber=customerNumber
+payment.customerNumber_is_required=customerNumber is required
+payment.checkNumber=checkNumber
+payment.checkNumber_is_required=checkNumber is required
+payment.paymentDate=paymentDate
+payment.paymentDate_is_required=paymentDate is required
+payment.amount=amount
+payment.amount_is_required=amount is required
+# table productlines.
+productline=productlines
+productline.productLine=productLine
+productline.productLine_is_required=productLine is required
+productline.textDescription=textDescription
+productline.textDescription_is_required=textDescription is required
+productline.htmlDescription=htmlDescription
+productline.htmlDescription_is_required=htmlDescription is required
+productline.image=image
+productline.image_is_required=image is required
+# table products.
+product=products
+product.productCode=productCode
+product.productCode_is_required=productCode is required
+product.productName=productName
+product.productName_is_required=productName is required
+product.productLine=productLine
+product.productLine_is_required=productLine is required
+product.productScale=productScale
+product.productScale_is_required=productScale is required
+product.productVendor=productVendor
+product.productVendor_is_required=productVendor is required
+product.productDescription=productDescription
+product.productDescription_is_required=productDescription is required
+product.quantityInStock=quantityInStock
+product.quantityInStock_is_required=quantityInStock is required
+product.buyPrice=buyPrice
+product.buyPrice_is_required=buyPrice is required
+product.msrp=MSRP
+product.msrp_is_required=MSRP is required
+# CustomerList.
+customerList=Customer List
+customerList_add=Add Customer List
+customerList.customerNumber=customer Number
+customerList.customerName=customer Name
+customerList.city=city
+customerList.country=country
+# CustomerShow.
+customerShow=Customer Show
+customerShow_add=Add Customer Show
+customerShow.customerNumber=customer Number
+customerShow.customerName=customer Name
+customerShow.contactLastName=contact Last Name
+customerShow.contactFirstName=contact First Name
+customerShow.phone=phone
+customerShow.addressLine1=address Line1
+customerShow.addressLine2=address Line2
+customerShow.city=city
+customerShow.state=state
+customerShow.postalCode=postal Code
+customerShow.country=country
+customerShow.salesRepEmployeeNumber=sales Rep Employee Number
+customerShow.creditLimit=credit Limit
+# CustomerEdit.
+customerEdit=Customer Edit
+customerEdit_add=Add Customer Edit
+customerEdit.customerNumber=customer Number
+customerEdit.customerName=customer Name
+customerEdit.contactLastName=contact Last Name
+customerEdit.contactFirstName=contact First Name
+customerEdit.phone=phone
+customerEdit.addressLine1=address Line1
+customerEdit.addressLine2=address Line2
+customerEdit.city=city
+customerEdit.state=state
+customerEdit.postalCode=postal Code
+customerEdit.country=country
+customerEdit.salesRepEmployeeNumber=sales Rep Employee Number
+customerEdit.creditLimit=credit Limit
+# CustomerPaymentStatistics.
+customerPaymentStatistic=Customer Payment Statistics
+customerPaymentStatistic_add=Add Customer Payment Statistics
+customerPaymentStatistic.customerNumber=customer Number
+customerPaymentStatistic.paymentPaymentDate=payments payment Date
+customerPaymentStatistic.amount=amount
+# EmployeeList.
+employeeList=Employee List
+employeeList_add=Add Employee List
+employeeList.employeeNumber=employee Number
+employeeList.lastName=last Name
+employeeList.firstName=first Name
+employeeList.extension=extension
+employeeList.email=email
+employeeList.officeCode=office Code
+employeeList.reportsTo=reports To
+employeeList.jobTitle=job Title
+# EmployeeShow.
+employeeShow=Employee Show
+employeeShow_add=Add Employee Show
+employeeShow.employeeNumber=employee Number
+employeeShow.lastName=last Name
+employeeShow.firstName=first Name
+employeeShow.extension=extension
+employeeShow.email=email
+employeeShow.officeCode=office Code
+employeeShow.reportsTo=reports To
+employeeShow.jobTitle=job Title
+# EmployeeEdit.
+employeeEdit=Employee Edit
+employeeEdit_add=Add Employee Edit
+employeeEdit.employeeNumber=employee Number
+employeeEdit.lastName=last Name
+employeeEdit.firstName=first Name
+employeeEdit.extension=extension
+employeeEdit.email=email
+employeeEdit.officeCode=office Code
+employeeEdit.reportsTo=reports To
+employeeEdit.jobTitle=job Title
+employeeEdit.employeesOffice=offices
+# OfficeList.
+officeList=Office List
+officeList_add=Add Office List
+officeList.officeCode=office Code
+officeList.city=city
+officeList.phone=phone
+officeList.addressLine1=address Line1
+officeList.addressLine2=address Line2
+officeList.state=state
+officeList.country=country
+officeList.postalCode=postal Code
+officeList.territory=territory
+# OfficeShow.
+officeShow=Office Show
+officeShow_add=Add Office Show
+officeShow.officeCode=office Code
+officeShow.city=city
+officeShow.phone=phone
+officeShow.addressLine1=address Line1
+officeShow.addressLine2=address Line2
+officeShow.state=state
+officeShow.country=country
+officeShow.postalCode=postal Code
+officeShow.territory=territory
+# OfficeEdit.
+officeEdit=Office Edit
+officeEdit_add=Add Office Edit
+officeEdit.officeCode=office Code
+officeEdit.city=city
+officeEdit.phone=phone
+officeEdit.addressLine1=address Line1
+officeEdit.addressLine2=address Line2
+officeEdit.state=state
+officeEdit.country=country
+officeEdit.postalCode=postal Code
+officeEdit.territory=territory
+# OfficeMap.
+officeMap=Office Map
+officeMap_add=Add Office Map
+officeMap.officeCode=office Code
+officeMap.city=city
+officeMap.phone=phone
+officeMap.addressLine1=address Line1
+officeMap.addressLine2=address Line2
+officeMap.state=state
+officeMap.country=country
+officeMap.postalCode=postal Code
+officeMap.territory=territory
+# OrderdetailList.
+orderdetailList=Orderdetail List
+orderdetailList_add=Add Orderdetail List
+orderdetailList.orderNumber=order Number
+orderdetailList.productCode=product Code
+orderdetailList.quantityOrdered=quantity Ordered
+orderdetailList.priceEach=price Each
+orderdetailList.orderLineNumber=order Line Number
+# OrderdetailShow.
+orderdetailShow=Orderdetail Show
+orderdetailShow_add=Add Orderdetail Show
+orderdetailShow.orderNumber=order Number
+orderdetailShow.productCode=product Code
+orderdetailShow.quantityOrdered=quantity Ordered
+orderdetailShow.priceEach=price Each
+orderdetailShow.orderLineNumber=order Line Number
+# OrderdetailEdit.
+orderdetailEdit=Orderdetail Edit
+orderdetailEdit_add=Add Orderdetail Edit
+orderdetailEdit.orderNumber=order Number
+orderdetailEdit.productCode=product Code
+orderdetailEdit.quantityOrdered=quantity Ordered
+orderdetailEdit.priceEach=price Each
+orderdetailEdit.orderLineNumber=order Line Number
+orderdetailEdit.orderdetailsOrder=orders
+orderdetailEdit.orderdetailsProduct=products
+# OrderList.
+orderList=Order List
+orderList_add=Add Order List
+orderList.orderNumber=order Number
+orderList.orderDate=order Date
+orderList.requiredDate=required Date
+orderList.shippedDate=shipped Date
+orderList.status=status
+orderList.comments=comments
+orderList.customerNumber=customer Number
+# OrderShow.
+orderShow=Order Show
+orderShow_add=Add Order Show
+orderShow.orderNumber=order Number
+orderShow.orderDate=order Date
+orderShow.requiredDate=required Date
+orderShow.shippedDate=shipped Date
+orderShow.status=status
+orderShow.comments=comments
+orderShow.customerNumber=customer Number
+# OrderEdit.
+orderEdit=Order Edit
+orderEdit_add=Add Order Edit
+orderEdit.orderNumber=order Number
+orderEdit.orderDate=order Date
+orderEdit.requiredDate=required Date
+orderEdit.shippedDate=shipped Date
+orderEdit.status=status
+orderEdit.comments=comments
+orderEdit.customerNumber=customer Number
+orderEdit.ordersCustomer=customers
+# PaymentList.
+paymentList=Payment List
+paymentList_add=Add Payment List
+paymentList.customerNumber=customer Number
+paymentList.checkNumber=check Number
+paymentList.paymentDate=payment Date
+paymentList.amount=amount
+# PaymentShow.
+paymentShow=Payment Show
+paymentShow_add=Add Payment Show
+paymentShow.customerNumber=customer Number
+paymentShow.checkNumber=check Number
+paymentShow.paymentDate=payment Date
+paymentShow.amount=amount
+# PaymentEdit.
+paymentEdit=Payment Edit
+paymentEdit_add=Add Payment Edit
+paymentEdit.customerNumber=customer Number
+paymentEdit.checkNumber=check Number
+paymentEdit.paymentDate=payment Date
+paymentEdit.amount=amount
+paymentEdit.paymentsCustomer=customers
+# ProductlineList.
+productlineList=Productline List
+productlineList_add=Add Productline List
+productlineList.productLine=product Line
+productlineList.textDescription=text Description
+productlineList.htmlDescription=html Description
+productlineList.image=image
+# ProductlineShow.
+productlineShow=Productline Show
+productlineShow_add=Add Productline Show
+productlineShow.productLine=product Line
+productlineShow.textDescription=text Description
+productlineShow.htmlDescription=html Description
+productlineShow.image=image
+# ProductlineEdit.
+productlineEdit=Productline Edit
+productlineEdit_add=Add Productline Edit
+productlineEdit.productLine=product Line
+productlineEdit.textDescription=text Description
+productlineEdit.htmlDescription=html Description
+productlineEdit.image=image
+# ProductList.
+productList=Product List
+productList_add=Add Product List
+productList.productCode=product Code
+productList.productName=product Name
+productList.productLine=product Line
+productList.productScale=product Scale
+productList.productVendor=product Vendor
+productList.productDescription=product Description
+productList.quantityInStock=quantity In Stock
+productList.buyPrice=buy Price
+productList.msrp=MSRP
+# ProductShow.
+productShow=Product Show
+productShow_add=Add Product Show
+productShow.productCode=product Code
+productShow.productName=product Name
+productShow.productLine=product Line
+productShow.productScale=product Scale
+productShow.productVendor=product Vendor
+productShow.productDescription=product Description
+productShow.quantityInStock=quantity In Stock
+productShow.buyPrice=buy Price
+productShow.msrp=MSRP
+# ProductEdit.
+productEdit=Product Edit
+productEdit_add=Add Product Edit
+productEdit.productCode=product Code
+productEdit.productName=product Name
+productEdit.productLine=product Line
+productEdit.productScale=product Scale
+productEdit.productVendor=product Vendor
+productEdit.productDescription=product Description
+productEdit.quantityInStock=quantity In Stock
+productEdit.buyPrice=buy Price
+productEdit.msrp=MSRP
+productEdit.productsProductline=productlines
+    </textarea>
+    <br/>
+    <br/>
+
+    <label>Select Locales to generate /assets/i18n/xx.json:</label>
+    <input type="button" value="toggle All" onclick="selectAllLocales();" />
+    <br/>
+    <input type="checkbox" name="Korean" value="ko">Korean</input>
+    <input type="checkbox" name="English" value="en">English</input>
+    <input type="checkbox" name="Chinese" value="zh">Chinese</input>
+
+    <br/><br/>
+    <br /><a href="javascript:localeGenerate();">translate</a>
+
+    <br/>
+    <br/>
+    <label>result: copy this text to .bat(for windows) or .sh(for unix) and run it.</label>
+    <br/>
+    <textarea id="dotbat" rows="10" cols="80">
+    </textarea>
+
+</body>
+</html>

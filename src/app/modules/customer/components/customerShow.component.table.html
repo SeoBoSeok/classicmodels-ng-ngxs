@@ -1,0 +1,59 @@
+
+<div *ngIf="customer">
+    <table class="datashow">
+    <tr>
+        <th>{{'customerShow.customerNumber' | translate}}</th>
+        <td class="number">{{customer.customerNumber}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.customerName' | translate}}</th>
+        <td>{{customer.customerName}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.contactLastName' | translate}}</th>
+        <td>{{customer.contactLastName}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.contactFirstName' | translate}}</th>
+        <td>{{customer.contactFirstName}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.phone' | translate}}</th>
+        <td>{{customer.phone}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.addressLine1' | translate}}</th>
+        <td>{{customer.addressLine1}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.addressLine2' | translate}}</th>
+        <td>{{customer.addressLine2}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.city' | translate}}</th>
+        <td>{{customer.city}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.state' | translate}}</th>
+        <td>{{customer.state}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.postalCode' | translate}}</th>
+        <td>{{customer.postalCode}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.country' | translate}}</th>
+        <td>{{customer.country}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.salesRepEmployeeNumber' | translate}}</th>
+        <td class="number">{{customer.salesRepEmployeeNumber}}</td>
+    </tr>
+    <tr>
+        <th>{{'customerShow.creditLimit' | translate}}</th>
+        <td class="number">{{customer.creditLimit}}</td>
+    </tr>
+    </table>
+
+</div>
+

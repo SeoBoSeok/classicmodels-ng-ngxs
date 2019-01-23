@@ -1,0 +1,33 @@
+
+<h3>{{'customerList' | translate}}</h3>
+
+<data-table
+    [titles]="customerListTitles"
+    [labels]="customerListLabels"
+    [rows]="customers"
+    [totalRows]="totalRows"
+    [columns]="customerListColumns"
+    [disableControl]="isEmbedded()"
+    [orderable]="customerListOrderableColumns"
+    (onOrdering)="onOrdering($event)"
+    (onClickToSpecificRow)="onClickToSpecificRow($event)"
+    [pagingType]="'page'"
+    (onPaginate)="onPaginate($event)"
+    >
+</data-table>
+
+<customer-list-filter (filtering)="filtering($event)"></customer-list-filter>
+
+<mat-card>
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                {{'Detail' | translate}}
+            </ng-template>
+            <div *ngIf="!isExclude('CustomerShow')">
+                <customer-show [embedded]="true" [customer]="customer"></customer-show>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+

@@ -1,0 +1,23 @@
+
+<div *ngIf="order">
+    <span class="column-label">{{'orderShow.orderNumber' | translate}}:</span>
+    <span class="column-data">{{order.orderNumber}}</span>
+    <br />
+    <span class="column-label">{{'orderShow.orderDate' | translate}}:</span>
+    <span class="column-data">{{order.orderDate | date: 'yyyy-MM-dd'}}</span>
+    <br />
+    <span class="column-label">{{'orderShow.requiredDate' | translate}}:</span>
+    <span class="column-data">{{order.requiredDate | date: 'yyyy-MM-dd'}}</span>
+    <br />
+    <span class="column-label">{{'orderShow.shippedDate' | translate}}:</span>
+    <span class="column-data">{{order.shippedDate | date: 'yyyy-MM-dd'}}</span>
+    <br />
+    <span class="column-label">{{'orderShow.status' | translate}}:</span>
+    <span class="column-data">{{order.status}}</span>
+    <br />
+    <span class="column-label">{{'orderShow.comments' | translate}}:</span>
+    <br/><div [innerHtml]="order.comments"></div>
+    <br />
+
+</div>
+

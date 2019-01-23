@@ -1,0 +1,28 @@
+
+<div *ngIf="product">
+    <span class="column-label">{{'productShow.productCode' | translate}}:</span>
+    <span class="column-data">{{product.productCode}}</span>
+    <br />
+    <span class="column-label">{{'productShow.productName' | translate}}:</span>
+    <span class="column-data">{{product.productName}}</span>
+    <br />
+    <span class="column-label">{{'productShow.productScale' | translate}}:</span>
+    <span class="column-data">{{product.productScale}}</span>
+    <br />
+    <span class="column-label">{{'productShow.productVendor' | translate}}:</span>
+    <span class="column-data">{{product.productVendor}}</span>
+    <br />
+    <span class="column-label">{{'productShow.productDescription' | translate}}:</span>
+    <br/><div [innerHtml]="product.productDescription"></div>
+    <br />
+    <span class="column-label">{{'productShow.quantityInStock' | translate}}:</span>
+    <span class="column-data">{{product.quantityInStock}}</span>
+    <br />
+    <span class="column-label">{{'productShow.buyPrice' | translate}}:</span>
+    <span class="column-data">{{product.buyPrice}}</span>
+    <br />
+    <span class="column-label">{{'productShow.msrp' | translate}}:</span>
+    <span class="column-data">{{product.msrp}}</span>
+    <br />
+
+</div>

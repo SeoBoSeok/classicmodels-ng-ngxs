@@ -1,0 +1,160 @@
+
+<form (ngSubmit)="onSubmit()" #productEditForm="ngForm" >
+    <div *ngIf="ef">
+        <div *ngIf="ef.errors && (ef.errors | json) != '{}'">
+            <h2>Ooops!!! fail to validation on server</h2>
+            <p class="alert">
+                If you see this messages, then your validation codes
+                is not agree with validation codes in backend server.</p>
+            <p class="alert">{{stringify(ef.errors)}}</p>
+        </div>
+
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.product.productCode"
+                    id="productCode" name="productCode" #productCode="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'product.productCode' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="productCode.errors && (productCode.dirty || productCode.touched)">
+                <div *ngIf="productCode.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'product.productCode' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.product.productName"
+                    id="productName" name="productName" #productName="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'product.productName' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="productName.errors && (productName.dirty || productName.touched)">
+                <div *ngIf="productName.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'product.productName' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.product.productScale"
+                    id="productScale" name="productScale" #productScale="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'product.productScale' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="productScale.errors && (productScale.dirty || productScale.touched)">
+                <div *ngIf="productScale.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'product.productScale' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.product.productVendor"
+                    id="productVendor" name="productVendor" #productVendor="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'product.productVendor' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="productVendor.errors && (productVendor.dirty || productVendor.touched)">
+                <div *ngIf="productVendor.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'product.productVendor' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <textarea name="product.productDescription" rows="10" class="edit-full-width"
+                id="productDescription" [(ngModel)]="ef.product.productDescription"
+        ></textarea>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.product.quantityInStock"
+                id="quantityInStock" name="quantityInStock" #quantityInStock="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'product.quantityInStock' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="quantityInStock.errors && (quantityInStock.dirty || quantityInStock.touched)">
+                <div *ngIf="quantityInStock.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'product.quantityInStock' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.product.buyPrice"
+                id="buyPrice" name="buyPrice" #buyPrice="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'product.buyPrice' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="buyPrice.errors && (buyPrice.dirty || buyPrice.touched)">
+                <div *ngIf="buyPrice.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'product.buyPrice' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.product.msrp"
+                id="msrp" name="msrp" #msrp="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'product.msrp' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="msrp.errors && (msrp.dirty || msrp.touched)">
+                <div *ngIf="msrp.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'product.msrp' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-select [(ngModel)]="selectedProductline" name="productline" #productline="ngModel">
+            <mat-option *ngFor="let productline of ef.productlines" [value]="productline">
+                {{ productline.productLine }}
+            </mat-option>
+        </mat-select>
+        <div [hidden]="productline.valid || productline.pristine" class="alert alert-danger">
+            {{'product.productline_is_required' | translate}}
+        </div>
+        <br/>
+
+        <br/>
+
+        <button mat-raised-button type="submit" [disabled]="!productEditForm.form.valid">{{'Save' | translate}}</button>
+
+    </div>
+</form>

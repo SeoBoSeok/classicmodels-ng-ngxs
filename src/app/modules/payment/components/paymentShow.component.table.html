@@ -1,0 +1,23 @@
+
+<div *ngIf="payment">
+    <table class="datashow">
+    <tr>
+        <th>{{'paymentShow.customerNumber' | translate}}</th>
+        <td class="number">{{payment.customerNumber}}</td>
+    </tr>
+    <tr>
+        <th>{{'paymentShow.checkNumber' | translate}}</th>
+        <td>{{payment.checkNumber}}</td>
+    </tr>
+    <tr>
+        <th>{{'paymentShow.paymentDate' | translate}}</th>
+        <td>{{payment.paymentDate | date: 'yyyy-MM-dd'}}</td>
+    </tr>
+    <tr>
+        <th>{{'paymentShow.amount' | translate}}</th>
+        <td class="number">{{payment.amount}}</td>
+    </tr>
+    </table>
+
+</div>
+

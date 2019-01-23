@@ -1,0 +1,18 @@
+
+<h3>{{'orderdetailList' | translate}}</h3>
+
+<data-table
+    [titles]="orderdetailListTitles"
+    [labels]="orderdetailListLabels"
+    [rows]="orderdetails"
+    [columns]="orderdetailListColumns"
+    [disableControl]="isEmbedded()"
+    [buttonsToEachRows]="buttonsToEachRows()"
+    (onClickToSpecificRow)="onClickToSpecificRow($event)"
+    (onClickButtonToRow)="onClickButtonToRow($event)"
+    [pagingType]="'more'"
+    [hasMoreRows]="hasMoreRows"
+    (onReadMore)="onReadMore()"
+    >
+</data-table>
+

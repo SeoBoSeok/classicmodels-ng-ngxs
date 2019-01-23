@@ -1,0 +1,33 @@
+
+<form (ngSubmit)="onSubmit()" #customerListFilterForm="ngForm">
+    <mat-card class="app-input-section">
+        <mat-toolbar color="primary">CustomerList Filter</mat-toolbar>
+        <mat-card-content>
+            <mat-form-field class="filter-full-width">
+                <input matInput [(ngModel)]="city" name="city">
+                <mat-placeholder>
+                    {{'city' | translate}}
+                </mat-placeholder>
+                <mat-hint align="end">
+                    city
+                </mat-hint>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="filter-full-width">
+                <input matInput [(ngModel)]="state" name="state">
+                <mat-placeholder>
+                    {{'state' | translate}}
+                </mat-placeholder>
+                <mat-hint align="end">
+                    state
+                </mat-hint>
+            </mat-form-field>
+            <br />
+            <button mat-raised-button color="primary">
+                {{'Filter' | translate}}
+            </button>
+        </mat-card-content>
+    </mat-card>
+
+</form>
+

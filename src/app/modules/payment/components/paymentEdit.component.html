@@ -1,0 +1,75 @@
+
+<form (ngSubmit)="onSubmit()" #paymentEditForm="ngForm" >
+    <div *ngIf="ef">
+        <div *ngIf="ef.errors && (ef.errors | json) != '{}'">
+            <h2>Ooops!!! fail to validation on server</h2>
+            <p class="alert">
+                If you see this messages, then your validation codes
+                is not agree with validation codes in backend server.</p>
+            <p class="alert">{{stringify(ef.errors)}}</p>
+        </div>
+
+        <mat-form-field class="edit-full-width">
+            <input matInput [(ngModel)]="ef.payment.checkNumber"
+                    id="checkNumber" name="checkNumber" #checkNumber="ngModel"
+                required
+            >
+            <mat-placeholder>
+                {{'payment.checkNumber' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="checkNumber.errors && (checkNumber.dirty || checkNumber.touched)">
+                <div *ngIf="checkNumber.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'payment.checkNumber' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="date" [(ngModel)]="ef.payment.paymentDate"
+                    id="paymentDate" name="paymentDate" #paymentDate="ngModel"
+                required
+                >
+            <mat-hint align="end">
+                {{'payment.paymentDate' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="edit-full-width">
+            <input matInput type="number" [(ngModel)]="ef.payment.amount"
+                id="amount" name="amount" #amount="ngModel"
+                integerOnly
+                required
+                >
+            <mat-placeholder>
+                {{'payment.amount' | translate}}
+            </mat-placeholder>
+            <mat-error *ngIf="amount.errors && (amount.dirty || amount.touched)">
+                <div *ngIf="amount.errors.required">
+                    {{'required_field' | translate}}
+                </div>
+            </mat-error>
+            <mat-hint align="end">
+                {{'payment.amount' | translate}}
+            </mat-hint>
+        </mat-form-field>
+        <br/>
+        <mat-select [(ngModel)]="selectedCustomer" name="customer" #customer="ngModel">
+            <mat-option *ngFor="let customer of ef.customers" [value]="customer">
+                {{ customer.customerName }}
+            </mat-option>
+        </mat-select>
+        <div [hidden]="customer.valid || customer.pristine" class="alert alert-danger">
+            {{'payment.customer_is_required' | translate}}
+        </div>
+        <br/>
+
+        <br/>
+
+        <button mat-raised-button type="submit" [disabled]="!paymentEditForm.form.valid">{{'Save' | translate}}</button>
+
+    </div>
+</form>
+

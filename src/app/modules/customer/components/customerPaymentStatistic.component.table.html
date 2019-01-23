@@ -1,0 +1,58 @@
+
+<mat-card>
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                {{'Line' | translate}}
+            </ng-template>
+            <div style="display: block;">
+                <canvas baseChart width="400" height="400"
+                    [datasets]="lineChartDatas"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartChartOptions"
+                    [legend]="lineChartLegend"
+                    [chartType]="'line'"
+                ></canvas>
+            </div>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                {{'Bar' | translate}}
+            </ng-template>
+            <div style="display: block;">
+                <canvas baseChart width="400" height="400"
+                    [datasets]="barChartDatas"
+                    [labels]="barChartLabels"
+                    [options]="barChartChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="'bar'"
+                ></canvas>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+
+<customer-payment-statistics-filter (filtering)="filtering($event)"></customer-payment-statistics-filter>
+
+<table id="customerPaymentStatisticTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>{{'customerNumber' | translate}}</th>
+            <th>{{'paymentPaymentDate' | translate}}</th>
+            <th>{{'amount' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers">
+            <td>
+                {{customer.customerNumber}}
+            </td>
+            <td>
+                {{customer.payments[0].paymentDate | date: 'yyyy-MM-dd'}}
+            </td>
+            <td>
+                {{customer.__xtra__['Amount']}}
+            </td>
+        </tr>
+    </tbody>
+</table>

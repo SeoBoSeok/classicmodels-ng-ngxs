@@ -1,0 +1,27 @@
+
+<div *ngIf="orderdetail">
+    <table class="datashow">
+    <tr>
+        <th>{{'orderdetailShow.orderNumber' | translate}}</th>
+        <td class="number">{{orderdetail.orderNumber}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderdetailShow.productCode' | translate}}</th>
+        <td>{{orderdetail.productCode}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderdetailShow.quantityOrdered' | translate}}</th>
+        <td class="number">{{orderdetail.quantityOrdered}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderdetailShow.priceEach' | translate}}</th>
+        <td class="number">{{orderdetail.priceEach}}</td>
+    </tr>
+    <tr>
+        <th>{{'orderdetailShow.orderLineNumber' | translate}}</th>
+        <td class="number">{{orderdetail.orderLineNumber}}</td>
+    </tr>
+    </table>
+
+</div>
+

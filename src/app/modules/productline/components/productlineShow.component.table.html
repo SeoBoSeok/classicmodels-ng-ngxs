@@ -1,0 +1,25 @@
+
+<div *ngIf="productline">
+    <table class="datashow">
+    <tr>
+        <th>{{'productlineShow.productLine' | translate}}</th>
+        <td>{{productline.productLine}}</td>
+    </tr>
+    <tr>
+        <th>{{'productlineShow.textDescription' | translate}}</th>
+        <td><div [innerHtml]="productline.textDescription"></div></td>
+    </tr>
+    <tr>
+        <th>{{'productlineShow.htmlDescription' | translate}}</th>
+        <td><div [innerHtml]="productline.htmlDescription"></div></td>
+    </tr>
+    <tr>
+        <th>{{'productlineShow.image' | translate}}</th>
+        <td>
+            <a href="{{ serverUrl(productline.image) }}"></a>
+        </td>
+    </tr>
+    </table>
+
+</div>
+
